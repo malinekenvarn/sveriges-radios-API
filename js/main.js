@@ -1,8 +1,6 @@
 
 "use strict";
 
-
-
 //Variables
 
 let numberOfChannels = 10; //the number of channels to be listed. Default is ten. Function changeNumrows() changes this value
@@ -14,7 +12,7 @@ let playChannelEl = document.getElementById("playchannel");
 
 //Event listeners
 
-numrowsEl.addEventListener('change', changeNumrows, false); //event listener to change the number of channels in list
+numrowsEl.addEventListener('change', changeNumrows, false); //event listener to change the number of channels to be shown
 playButtonEl.addEventListener('click', playLiveAudio, false); //by clicking, a radioplayer will play selected radio channel
 
 
@@ -25,12 +23,12 @@ function loadData() {
 
     fetch(`https://api.sr.se/api/v2/channels/?size=${numberOfChannels}&liveaudiotemplateid=2&audioquality=hi&format=json`) //fetch channels from the API
         .then((resp) => resp.json())  //parse to object
-        .then((data) => {            // data is the object
+        .then((data) => {
 
             mainNavEl.innerHTML = ""; //clear the navigation menu when reload
             playChannelEl.innerHTML = ""; //clear the radio drop down list when reload
 
-            //loop the array and create elements to list channels
+            //loop the array and create elements to show channels
             data.channels.forEach(item => {
 
                 let logoEl = document.createElement("li");
@@ -57,7 +55,7 @@ function loadData() {
 
 
 
-//function to load a channels program schedule, and only programs that hasn't been sent
+//Function to load a channels program schedule, and only programs that hasn't been sent
 
 function loadFront(evt) {
 
@@ -80,7 +78,7 @@ function loadFront(evt) {
 
                 //get current time
                 let date = new Date();
-                let currentTime = date.getTime(); //The getTime() method returns the number of milliseconds* since the Unix Epoch
+                let currentTime = date.getTime(); //the getTime() method returns the number of milliseconds since the Unix Epoch according to developer.mozilla.org
 
                 //the endtime of every program converted to format: number of milliseconds* since the Unix Epoch
                 let compareTime = ToDateObj(item.endtimeutc).getTime();
@@ -117,21 +115,24 @@ function loadFront(evt) {
 
 
 
-//function to open radio player
+//Function to open radio player
+
 function playLiveAudio() {
     //this creates the radioplayer element
     radioPlayerEl.innerHTML = `<audio controls="" autoplay=""><source src=${playChannelEl.value} type="audio/mpeg"></audio>`;
 }
 
 
-//function to transform the JSON /Date()/ format to a Date() object
+//Function to transform the JSON /Date()/ format to a Date() object
+
 function ToDateObj(JSONStr) {
     let dateObj = new Date(JSONStr.match(/\d+/)[0] * 1);
     return dateObj;
 }
 
 
-//function to display a string of time in format hours:minutes
+//Function to display a string of time in format hours:minutes
+
 function showTime(date) {
 
     let hours = date.getHours();
@@ -144,7 +145,8 @@ function showTime(date) {
 }
 
 
-//uppdates the number of channels listed in the nav
+//Uppdates the number of channels listed in the nav
+
 function changeNumrows() {
     numberOfChannels = document.getElementById("numrows").value; //the input number
     loadData(); //reload list
