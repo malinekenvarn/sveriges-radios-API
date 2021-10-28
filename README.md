@@ -13,3 +13,7 @@ The HTML and CSS was provided from the instructors, the task was to write in the
 2. An input field to change how many channels to be shown. 
 
 3. A function to open a mp3 player. In the dropdown menu, a channel can be choosen and by clicking the play button, one can listen to that channel.
+
+
+Link to the project: 
+http://studenter.miun.se/~maek2105/dt084g/project/
